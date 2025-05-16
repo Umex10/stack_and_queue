@@ -51,7 +51,9 @@ public class MyStackListTest {
     void popTest() {
         list.pop();
         assertEquals("null", list.listAsString());
-        assertNull(list.pop());
+        assertThrows(NoSuchElementException.class, () -> {
+            list.pop();
+        });
     }
 
     /*----------------------------------------------------------*
@@ -183,8 +185,6 @@ public class MyStackListTest {
         list.deleteLast();
         assertEquals(0, list.size());
     }
-
-
 
     /*----------------------------------------------------------*
      |                       Clear Tests                        |

@@ -14,18 +14,9 @@ public class MyStackList<E> {
     }
 
     public int size() {
-        /* 
-        Node<E> current = head;
-        int count = 1;
-
-        while (current.next != null) {
-            current = current.next;
-            count++;
-        }
-
-        return count;*/
 
         return size;
+
     }
 
     public boolean isEmpty() {
@@ -39,15 +30,17 @@ public class MyStackList<E> {
         size++;
     }
 
-    public Node<E> pop() {
-        if (!this.isEmpty()) {
-            Node<E> newNode = head;
-            head = head.next;
-            size--;
-            return newNode;
+    public E pop() {
+
+        if (this.isEmpty()) {
+            throw new NoSuchElementException("The list is empty!");
         }
 
-        return null;
+        E data = head.data;
+        head = head.next;
+        size--;
+        return data;
+
     }
 
     public E first() {
@@ -121,7 +114,7 @@ public class MyStackList<E> {
             return;
         }
 
-        while(current.next.next != null) {
+        while (current.next.next != null) {
             current = current.next;
         }
 
