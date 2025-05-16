@@ -1,0 +1,13 @@
+<project name="Calculator">
+<publishDate position="right"/>
+<version position="left"/>
+<body>
+<menu name="Overview">
+<item name="Introduction" href="index.html"/>
+<item name="Stack List" href="stackList.html"/>
+<item name="Stack Array" href="stackArray.html"/>
+
+</menu>
+<menu ref="reports"/>
+</body>
+</project>

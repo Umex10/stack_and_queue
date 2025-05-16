@@ -2,11 +2,13 @@ package at.fhj.msd;
 
 import java.util.NoSuchElementException;
 
+
 public class MyStackList<E> {
 
     Node<E> head;
     Node<E> tail;
     int size = 1;
+
 
     public MyStackList(Node<E> head) {
         this.head = head;
