@@ -3,6 +3,7 @@ package at.fhj.msd;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,133 +20,123 @@ public class MyStackListTest {
     @BeforeEach
     void setup() {
         Node<Integer> node = new Node<>(3);
-
         list = new MyStackList<>(node);
-
     }
 
     /*----------------------------------------------------------*
      |                        Size Test                         |
      *----------------------------------------------------------*/
     @Test
-    @DisplayName("size() Test")
-    void SizeTest() {
+    @DisplayName("size(): returns correct list size after multiple addFirst() calls")
+    void sizeTest() {
         list.addFirst(1);
         list.addFirst(2);
         list.addFirst(3);
         list.addFirst(4);
-
         assertEquals(5, list.size());
-
     }
 
     /*----------------------------------------------------------*
-     |                   push and pop Tests                      |
+     |                      push / pop Tests                    |
      *----------------------------------------------------------*/
     @Test
-    @DisplayName("push() Test")
+    @DisplayName("push(): element is added at the front")
     void pushTest() {
         list.push(4);
         assertEquals("4 -> 3 -> null", list.listAsString());
     }
 
     @Test
-    @DisplayName("pop() Test")
+    @DisplayName("pop(): removes head and returns it, null if empty")
     void popTest() {
         list.pop();
         assertEquals("null", list.listAsString());
-        assertEquals(null, list.pop());
+        assertNull(list.pop());
     }
 
     /*----------------------------------------------------------*
-     |                  Access elements Tests                   |
+     |               Access Tests: first() / last()             |
      *----------------------------------------------------------*/
     @Test
-    @DisplayName("first() Test")
+    @DisplayName("first(): returns current head")
     void firstTest() {
         assertEquals(3, list.first());
     }
 
     @Test
-    @DisplayName("first() Test")
-    void firstTest2() {
+    @DisplayName("first(): returns new head after multiple addFirst() calls")
+    void firstTestMultiple() {
         list.addFirst(4);
         list.addFirst(5);
         assertEquals(5, list.first());
     }
 
     @Test
-    @DisplayName("first() NoSuchElementArgument Test")
+    @DisplayName("first(): throws NoSuchElementException when list is empty")
     void firstIllegalTest() {
         list.deleteFirst();
-        assertThrows(NoSuchElementException.class, () -> {
-            list.first();
-        });
+        assertThrows(NoSuchElementException.class, () -> list.first());
     }
 
     @Test
-    @DisplayName("last() Test")
+    @DisplayName("last(): returns last element in list")
     void lastTest() {
         assertEquals(3, list.last());
     }
 
     @Test
-    @DisplayName("last() Test")
-    void lastTest2() {
+    @DisplayName("last(): returns last even after multiple addFirst() calls")
+    void lastTestMultiple() {
         list.addFirst(4);
         list.addFirst(5);
         assertEquals(3, list.last());
     }
 
     @Test
-    @DisplayName("last() NoSuchElementArgument Test")
+    @DisplayName("last(): throws NoSuchElementException when list is empty")
     void lastIllegalTest() {
         list.deleteFirst();
-        assertThrows(NoSuchElementException.class, () -> {
-            list.last();
-        });
+        assertThrows(NoSuchElementException.class, () -> list.last());
     }
 
     /*----------------------------------------------------------*
-     |                      add() Tests                         |
+     |                         Add Tests                        |
      *----------------------------------------------------------*/
     @Test
-    @DisplayName("addFirst() Test")
+    @DisplayName("addFirst(): updates head correctly")
     void addFirstTest() {
         list.addFirst(4);
         assertEquals(4, list.first());
     }
 
     @Test
-    @DisplayName("addLast() Test")
+    @DisplayName("addLast(): appends element to the end")
     void addLastTest() {
         list.addLast(4);
         assertEquals(4, list.last());
-
     }
 
     @Test
-    @DisplayName("addLast() - head=null Test")
-    void addLastNullTest() {
+    @DisplayName("addLast(): works when list was empty (head = null)")
+    void addLastOnEmptyListTest() {
         list.deleteFirst();
         list.addLast(3);
         assertEquals("3 -> null", list.listAsString());
-
     }
 
     /*----------------------------------------------------------*
-     |                     delete() Tests                       |
+     |                       Delete Tests                       |
      *----------------------------------------------------------*/
     @Test
-    @DisplayName("deleteFirst() Test")
-    void deleteFirst() {
+    @DisplayName("deleteFirst(): removes head and updates tail if necessary")
+    void deleteFirstTest() {
         list.deleteFirst();
         assertTrue(list.isEmpty());
     }
 
     @Test
-    @DisplayName("deleteFirst() Test")
-    void deleteFirst2() {
+    @DisplayName("deleteFirst(): removes only first, keeps rest intact")
+    void deleteFirstPreservesRestTest() {
         list.addFirst(3);
         list.addFirst(4);
         list.addLast(6);
@@ -154,15 +145,23 @@ public class MyStackListTest {
     }
 
     @Test
-    @DisplayName("deleteLast() Test")
-    void deleteLastTest() {
+    @DisplayName("deleteFirst(): checks if lists is really empty")
+    void deleteFirst_emptyListTest() {
+        list.deleteFirst();
+        list.deleteFirst();
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    @DisplayName("deleteLast(): removes tail when single element")
+    void deleteLastTestSingle() {
         list.deleteLast();
         assertTrue(list.isEmpty());
     }
 
     @Test
-    @DisplayName("deleteLast() Test")
-    void deleteLastTest2() {
+    @DisplayName("deleteLast(): removes last node correctly")
+    void deleteLastTestMultiple() {
         list.addLast(5);
         list.addLast(7);
         list.deleteLast();
@@ -170,18 +169,40 @@ public class MyStackListTest {
     }
 
     @Test
-    @DisplayName("deleteLast() List-String Test")
+    @DisplayName("deleteLast(): listAsString() reflects updated state")
     void deleteLastStringTest() {
         list.addLast(5);
         list.deleteLast();
         assertEquals("3 -> null", list.listAsString());
     }
 
+    @Test
+    @DisplayName("deleteLast(): safe when list is already empty")
+    void deleteLastOnEmptyListTest() {
+        list.deleteLast();
+        list.deleteLast();
+        assertEquals(0, list.size());
+    }
+
+
+
     /*----------------------------------------------------------*
-     |                   list as String Tests                   |
+     |                       Clear Tests                        |
      *----------------------------------------------------------*/
     @Test
-    @DisplayName("listAsString() Test")
+    @DisplayName("clear(): resets head, tail, and size")
+    void clearTest() {
+        list.clear();
+        assertEquals(0, list.size());
+        assertNull(list.head);
+        assertNull(list.tail);
+    }
+
+    /*----------------------------------------------------------*
+     |                   List as String Tests                   |
+     *----------------------------------------------------------*/
+    @Test
+    @DisplayName("listAsString(): returns correct string representation")
     void listAsStringTest() {
         list.addLast(4);
         list.addLast(5);
@@ -189,10 +210,9 @@ public class MyStackListTest {
     }
 
     @Test
-    @DisplayName("listAsString()")
-    void listAsStringTest2() {
+    @DisplayName("listAsString(): returns 'null' when list is empty")
+    void listAsStringEmptyTest() {
         list.deleteFirst();
         assertEquals("null", list.listAsString());
     }
-
 }

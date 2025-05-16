@@ -5,13 +5,16 @@ import java.util.NoSuchElementException;
 public class MyStackList<E> {
 
     Node<E> head;
+    Node<E> tail;
+    int size = 1;
 
     public MyStackList(Node<E> head) {
         this.head = head;
-
+        this.tail = head;
     }
 
     public int size() {
+        /* 
         Node<E> current = head;
         int count = 1;
 
@@ -20,7 +23,9 @@ public class MyStackList<E> {
             count++;
         }
 
-        return count;
+        return count;*/
+
+        return size;
     }
 
     public boolean isEmpty() {
@@ -31,12 +36,14 @@ public class MyStackList<E> {
         Node<E> newNode = new Node<>(newElement);
         newNode.next = head;
         head = newNode;
+        size++;
     }
 
     public Node<E> pop() {
-        if (head != null) {
+        if (!this.isEmpty()) {
             Node<E> newNode = head;
             head = head.next;
+            size--;
             return newNode;
         }
 
@@ -68,6 +75,7 @@ public class MyStackList<E> {
         Node<E> newNode = new Node<>(newElement);
         newNode.next = head;
         head = newNode;
+        size++;
 
     }
 
@@ -75,24 +83,26 @@ public class MyStackList<E> {
 
         Node<E> newNode = new Node<>(newElement);
 
-        if (head == null) {
+        if (this.isEmpty()) {
             head = newNode;
+            tail = head;
+            size++;
             return;
         }
 
-        Node<E> current = head;
-        while (current.next != null) {
-            current = current.next;
-        }
-
-        current.next = newNode;
-
+        tail.next = newNode;
+        tail = newNode;
+        size++;
     }
 
     public void deleteFirst() {
 
-        if (head != null) {
+        if (!this.isEmpty()) {
             head = head.next;
+            size--;
+            if (head == null) {
+                tail = null;
+            }
         }
 
     }
@@ -100,21 +110,31 @@ public class MyStackList<E> {
     public void deleteLast() {
         Node<E> current = head;
 
-        if (current == null || current.next == null) {
+        if (head == null) {
+            return;
+        }
+
+        if (head.next == null) {
             head = null;
+            tail = null;
+            size--;
+            return;
         }
 
-        while (current.next != null) {
-            if (current.next.next == null) {
-                current.next = null;
-                break;
-            } else {
-                current = current.next;
-                current.next = current.next.next;
-            }
-
+        while(current.next.next != null) {
+            current = current.next;
         }
 
+        current.next = null;
+        tail = current;
+        size--;
+
+    }
+
+    public void clear() {
+        head = null;
+        tail = null;
+        this.size = 0;
     }
 
     public String listAsString() {
@@ -123,6 +143,7 @@ public class MyStackList<E> {
 
         if (this.isEmpty()) {
             text.append("null");
+            return text.toString();
         }
 
         Node<E> current = head;
@@ -131,11 +152,7 @@ public class MyStackList<E> {
             current = current.next;
         }
 
-        if (this.isEmpty()) {
-
-        } else {
-            text.append("null");
-        }
+        text.append("null");
 
         return text.toString();
 
