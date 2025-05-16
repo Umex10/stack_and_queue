@@ -3,7 +3,13 @@
     <groupId>at.fhj.msd</groupId>
     <artifactId>stack_and_queue</artifactId>
     <version>1.0</version>
-    <url>https://github.com/casper-zielinski</url>
+    <description>
+        This project requires implementing four Java classes—MyStackArray, MyStackList, MyQueueArray, and MyQueueList—
+        based on data structures covered in the lectures. The classes will be tested automatically with valid input data.
+        Handling invalid inputs is optional. Extensions or deviations from the given design may be discussed during the project review.
+        At minimum, the four specified Java files must be submitted. Optionally, the testing environment can be included.
+    </description>
+    <url>https://github.com/Umex10/stack_and_queue</url>
     <!--  developers information, will be used for documentation  -->
     <developers>
         <developer>
@@ -39,8 +45,8 @@
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- JavaFX-Konfiguration: Version und Plattform -->
-    <javafx.version>21</javafx.version>
-    <javafx.platform>win</javafx.platform> <!-- Ändere dies ggf. zu: linux, mac -->
+        <javafx.version>21</javafx.version>
+        <javafx.platform>win</javafx.platform> <!-- Ändere dies ggf. zu: linux, mac -->
 
     </properties>
     <dependencies>
@@ -79,27 +85,27 @@
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>2.22.1</version>
         </dependency>
-            <!-- JavaFX Dependencies mit platform-spezifischem classifier -->
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-controls</artifactId>
-      <version>${javafx.version}</version>
-      <classifier>${javafx.platform}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-fxml</artifactId>
-      <version>${javafx.version}</version>
-      <classifier>${javafx.platform}</classifier>
-    </dependency>
+        <!-- JavaFX Dependencies mit platform-spezifischem classifier -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
 
     </dependencies>
     <build>
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-        </resource>
-    </resources>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -155,14 +161,14 @@
                 </executions>
             </plugin>
             <!-- JavaFX Maven Plugin zum Ausführen der JavaFX App -->
-      <plugin>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.8</version>
-        <configuration>
-          <mainClass>at.fhj.msd.Main</mainClass> <!-- Passe diesen Pfad ggf. an -->
-        </configuration>
-      </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>at.fhj.msd.Main</mainClass> <!-- Passe diesen Pfad ggf. an -->
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
