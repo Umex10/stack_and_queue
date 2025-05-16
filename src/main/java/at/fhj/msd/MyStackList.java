@@ -55,12 +55,7 @@ public class MyStackList<E> {
             throw new NoSuchElementException("The list is empty!");
         }
 
-        Node<E> current = head;
-        while (current.next != null) {
-            current = current.next;
-        }
-
-        return current.data;
+        return tail.data;
     }
 
     public void addFirst(E newElement) {
