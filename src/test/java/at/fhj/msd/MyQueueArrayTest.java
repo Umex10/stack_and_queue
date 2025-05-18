@@ -1,6 +1,8 @@
 package at.fhj.msd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,5 +69,30 @@ public class MyQueueArrayTest {
             assertEquals(4, mqa.size());
             mqa.put(5);
             assertEquals(5, mqa.size());
+            assertThrows(IllegalArgumentException.class, () -> {
+                  mqa.put(6);
+            });
+      }
+
+      /*----------------------------------------------------------*
+      |                      get() Test                          |
+      *----------------------------------------------------------*/
+      @Test
+      @DisplayName("get() Test")
+      void getTest()
+      {
+            mqa.put(1);
+            mqa.put(2);
+            mqa.put(3);
+            mqa.put(4);
+            mqa.put(5);
+            assertEquals(1, mqa.get());
+            assertEquals(2, mqa.get());
+            assertEquals(3, mqa.get());
+            assertEquals(4, mqa.get());
+            assertEquals(5, mqa.get());
+            assertThrows(IllegalArgumentException.class, () -> {
+                  mqa.get();
+            });
       }
 }

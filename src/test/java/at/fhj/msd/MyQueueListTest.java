@@ -38,8 +38,8 @@ public class MyQueueListTest {
       mql.put(4);
       mql.get();
       assertEquals(2, mql.size());
-      mql.get();
-      mql.get();
+      assertEquals(3, mql.get()); 
+      assertEquals(4, mql.get());
       assertEquals(0, mql.size());
     }
 

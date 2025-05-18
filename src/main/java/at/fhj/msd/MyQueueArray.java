@@ -46,38 +46,39 @@ public class MyQueueArray<E> {
        */
       public boolean isEmpty() {return this.size == -1;}
 
+      /**
+       * puts an element into the queue.
+       * The element is added to the back of the queue.
+       * The queue is a FIFO (First In First Out) data structure.
+       * It also checks if the queue is full before adding an element.
+       * If the queue is full, it throws an IllegalArgumentException.
+       * @param Element
+       * @throws IllegalArgumentException if the queue is full
+       */
       public void put(E Element) {
 
-          if (size() + 1 > this.maxSize) {
-              throw new IllegalArgumentException("Queue is full");
-          }
-          else
-          {
-            if (isEmpty() == true) {
-                  queue[0] = Element;
-                  ++this.size;
-            }
-            else
-            {
-                  int pointer1 = 1;
-                  int pointer2 = size();
-                  E[] copy = queue.clone();
+          if (size() >= maxSize) 
+          {throw new IllegalArgumentException("Queue is full");} 
 
-                  while (pointer2 >= pointer1)
-                  {
-                    copy[pointer1] = queue[pointer1 - 1];
-                    copy[pointer2] = queue[pointer2 - 1];
-                    ++pointer1;
-                    --pointer2;
+            if (isEmpty()) {queue[0] = Element;}
+            else {
+                  for (int i = size(); i > 0; i--) {
+                        queue[i] = queue[i - 1]; 
                   }
-                  this.queue = copy;
-                  this.queue[0] = Element;
-                  ++size;
+                  queue[0] = Element; 
             }
-          }
+            ++size;
       }
 
-     
+      /**
+       * removes an element from the queue.
+       * The element is removed from the front of the queue.
+       * The queue is a FIFO (First In First Out) data structure.
+       * It also checks if the queue is empty before removing an element.
+       * If the queue is empty, it throws an IllegalArgumentException.
+       * @return the deleted element
+       * @throws IllegalArgumentException if the queue is empty
+       */
       public E get()
       {
             if (isEmpty() == true)
