@@ -6,6 +6,8 @@
 <item name="Introduction" href="index.html"/>
 <item name="Stack List" href="stackList.html"/>
 <item name="Stack Array" href="stackArray.html"/>
+<item name="Queue List" href="queueList.html"/>
+<item name="Queue Array" href="queueArray.html"/>
 
 </menu>
 <menu ref="reports"/>
