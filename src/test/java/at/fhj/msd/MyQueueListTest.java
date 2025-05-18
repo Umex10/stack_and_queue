@@ -2,10 +2,13 @@ package at.fhj.msd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+// Add the following import if Node is in the same package or adjust the package accordingly
+
+
+
 
 public class MyQueueListTest {
 
@@ -17,7 +20,7 @@ public class MyQueueListTest {
       @BeforeEach
       public void setup()
       {
-            mql = new MyQueueList<>(new Node<>(1));
+        mql = new MyQueueList<>(new Node<>(1));
       }
 
       /*----------------------------------------------------------*
